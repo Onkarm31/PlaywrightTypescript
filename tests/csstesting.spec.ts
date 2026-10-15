@@ -30,10 +30,31 @@ test (" CSS", async({page})=>{
 
      // Step 1: hover over the parent menu so the dropdown opens
     await page.locator('ul.top-menu > li > a[href="/electronics"]').hover();
-
     // Step 2: the link is now visible, so it can be clicked
     const option: Locator = page.locator('ul.top-menu a[href="/cell-phones"]');
     await option.click();
+
+    const smartphoneoption: Locator = page.locator('h2.product-title a[href="/smartphone"]');
+    await smartphoneoption.click();
+
+    await page.getByRole('textbox', { name: 'Qty:', exact: true }).fill('2');
+
+    const addToCartButton: Locator = page.locator('input#add-to-cart-button-43');
+    await addToCartButton.click();
+    await page.locator('li#topcartlink a[href="/cart"]').click();
+
+
+    await page.locator('select#CountryId').click();
+    
+    const countryOption: Locator = page.locator('select#CountryId option[value="41"]');
+    await countryOption.click();
+
+    await page.getByRole('button', { name: 'estimateshipping'}).click();
+
+    await page.locator('input#termsofservice').check();
+    await page.waitForTimeout(10000);
+
+
 
     // await expect(page).toHaveURL(/cell-phones/);
 
